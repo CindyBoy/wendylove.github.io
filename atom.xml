@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>锦衣卫成仙之路</title>
+  
+  <subtitle>程序员帅不帅没关系，最要紧的是得骚</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.wendylove.cn/"/>
+  <updated>2019-03-18T02:03:51.531Z</updated>
+  <id>http://www.wendylove.cn/</id>
+  
+  <author>
+    <name>锦衣卫</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git rebase</title>
+    <link href="http://www.wendylove.cn/2019/03/18/git-rebase/"/>
+    <id>http://www.wendylove.cn/2019/03/18/git-rebase/</id>
+    <published>2019-03-18T02:02:06.000Z</published>
+    <updated>2019-03-18T02:03:51.531Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Git-rebase-变基"><a href="#Git-rebase-变基" class="headerlink" title="Git rebase 变基"></a>Git rebase 变基</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 变基流程: 注意，和merge有些差别， 如master分支合并branch1到master分支 fast-forward</span><br><span class="line">// 图：git_rebase1.gif git_rebase2.gif </span><br><span class="line">$ git checkout [要合并的分支]   // eg: git checkout branch1</span><br><span class="line">$ git rebase [主分支]          //  eg: git rebase master</span><br><span class="line">$ git checkout [主分支]</span><br><span class="line">$ git merge [要合并的分支]</span><br></pre></td></tr></table></figure><h2 id="撤回某个错误的提交-交互式rebase撤回"><a href="#撤回某个错误的提交-交互式rebase撤回" class="headerlink" title="撤回某个错误的提交   交互式rebase撤回"></a>撤回某个错误的提交   交互式rebase撤回</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 比如撤销倒数第二个提交  如图git_rebase_i01.gif</span><br><span class="line">$ git rebase -i HEAD^^   //也可以撤回某个提交： git rebase -i [commit_id]</span><br></pre></td></tr></table></figure><h2 id="用-rebase-–onto-撤销提交"><a href="#用-rebase-–onto-撤销提交" class="headerlink" title="用 rebase –onto 撤销提交"></a>用 rebase –onto 撤销提交</h2><p>rebase 加上 –onto 选项之后，可以指定 rebase 的「起点」。<br>一般的 rebase，告诉 Git 的是「我要把当前 commit 以及它之前的 commits 重新提交到目标 commit 上去，<br>这其中，rebase 的「起点」是自动判定的：选取当前 commit 和目标 commit 在历史上的交叉点作为起点。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 如果我只想把 5 提交到 3 上，不想附带上 4，图示：git_rebase_onto01.gif git_rebase_onto02.gif</span><br><span class="line">// --onto 参数后面有三个附加参数：目标 commit、起点 commit（注意：rebase 的时候会把起点排除在外）、终点 commit</span><br><span class="line">$ git rebase --onto [3_commitid] [4_commitid] branch1   // 上面这行指令就会从 4 往下数，拿到 branch1 所指向的 5，然后把 5 重新提交到 3 上去。</span><br></pre></td></tr></table></figure><h3 id="合并某个分支特定的commitID"><a href="#合并某个分支特定的commitID" class="headerlink" title="合并某个分支特定的commitID"></a>合并某个分支特定的commitID</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">$ git cherry-pick [commit_id] // commit_id:分支中的某一个commit</span><br></pre></td></tr></table></figure><h3 id="合并某个分支上的一系列commits"><a href="#合并某个分支上的一系列commits" class="headerlink" title="合并某个分支上的一系列commits"></a>合并某个分支上的一系列commits</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 首先需要基于feature创建一个新的分支，并指明新分支的最后一个commit</span><br><span class="line">$ git checkout -b newbranch 62ecb3</span><br><span class="line">$ git rebase --onto master 76cada^ // 结果就是feature分支的commit 76cada ~62ecb3 都被合并到了master分支。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Git-rebase-变基&quot;&gt;&lt;a href=&quot;#Git-rebase-变基&quot; class=&quot;headerlink&quot; title=&quot;Git rebase 变基&quot;&gt;&lt;/a&gt;Git rebase 变基&lt;/h3&gt;&lt;figure class=&quot;highlight plai
+      
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://www.wendylove.cn/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://www.wendylove.cn/2019/02/26/hello-world/"/>
+    <id>http://www.wendylove.cn/2019/02/26/hello-world/</id>
+    <published>2019-02-26T08:12:21.097Z</published>
+    <updated>2019-02-26T08:12:21.097Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
